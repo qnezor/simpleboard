@@ -63,9 +63,9 @@ $users = $db->query("SELECT * FROM users");
         <p>сообщений нет</p>
     <?php else: ?>
         <?php while ($message = $messages->fetch_assoc()): ?>
-            <div>
+            <div id="#<?php echo $message['id'] ?>">
                 <div style="display: flex;">
-                    <p style="font-size: 80%; margin-top: 3px" id="#<?php echo $message['id'] ?>">#<?php echo $message['id'] ?> | <?php echo $message['time'] ?></p>
+                    <p style="font-size: 80%; margin-top: 3px">#<?php echo $message['id'] ?> | <?php echo $message['time'] ?></p>
                 </div>
                 <?php
                 $stmt = $db->prepare("SELECT * FROM users WHERE nickname = ?");
