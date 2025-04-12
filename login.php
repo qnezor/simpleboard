@@ -2,8 +2,10 @@
 session_start();
 require_once "db.php";
 
+checkAccess(['banned', 'user']);
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' & isset($_POST['log'])) {
-    if (!isset($_POST['nickname']) === "" || !isset($_POST['password']) === "") {
+    if ($_POST['nickname'] === "" || $_POST['password'] === "") {
         echo "пусто";
     } else {
         $nickname = $db->real_escape_string($_POST['nickname']);

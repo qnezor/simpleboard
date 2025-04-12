@@ -2,6 +2,8 @@
 session_start();
 require_once "db.php";
 
+checkAccess('banned', 'user');
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' & isset($_POST['reg'])) {
     if (!isset($_POST['nickname']) === "" || !isset($_POST['password']) === "") {
         echo "пусто";
