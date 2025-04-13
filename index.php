@@ -9,11 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' and isset($_POST['shitpost'])) {
         header("Location: /board/banned.php");
         exit;
     } else {
-        if (!isset($_SESSION['nickname'])) {
-            $nickname = "Анонимус";
-        } else {
-            $nickname = htmlspecialchars($_SESSION['nickname']);
-        }
+        $nickname = htmlspecialchars($_SESSION['nickname']);
         $reply = $db->real_escape_string((int)$_POST['reply']);
         $text = $db->real_escape_string($_POST['text']);
         $insert = $db->query("INSERT INTO messages (nickname, text, reply) VALUES ('$nickname', '$text', $reply)");
@@ -99,7 +95,7 @@ $users = $db->query("SELECT * FROM users");
                 }
                 ?>
                 <?php if ($role === 'admin'): ?>
-                    <p style="color: blue"><?php echo $message['nickname'] ?></p>
+                    <p style="color: blue"><?php echo $message['nickname'] ?> (админ)</p>
                 <?php elseif ($role === "banned"): ?>
                     <p style="color: red"><?php echo $message['nickname'] ?> (забанен)</p>
                 <?php else: ?>
