@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' and isset($_POST['shitpost'])) {
         $reply = $db->real_escape_string((int)$_POST['reply']);
         $text = $db->real_escape_string($_POST['text']);
         if ($image !== "") {
-            $text = $image . " " . $db->real_escape_string($_POST['text']);
+            $text = $image . "<br>" . $db->real_escape_string($_POST['text']);
         }
         $insert = $db->query("INSERT INTO messages (nickname, text, reply) VALUES ('$nickname', '$text', $reply)");
         header("Location: /board/");
