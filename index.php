@@ -10,8 +10,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' and isset($_POST['shitpost'])) {
         exit;
     } else {
         $nickname = htmlspecialchars($_SESSION['nickname']);
+        $image = "<img src=" . htmlspecialchars($_POST['image']) . ">";
         $reply = $db->real_escape_string((int)$_POST['reply']);
         $text = $db->real_escape_string($_POST['text']);
+        if ($image !== "") {
+            $text = $image . " " . $db->real_escape_string($_POST['text']);
+        }
         $insert = $db->query("INSERT INTO messages (nickname, text, reply) VALUES ('$nickname', '$text', $reply)");
         header("Location: /board/");
         exit;
@@ -68,6 +72,9 @@ $users = $db->query("SELECT * FROM users");
     <form method="POST" style="margin: 5px 0px;">
         <input type="text" name="nickname" value="<?php echo $_SESSION['nickname']; ?>" disabled>
         <input type="text" name="reply" value="" placeholder="ответ" id="reply_inp">
+        <div>
+            <input type="text" name="image" placeholder="ссылка на картинку">
+        </div>
         <div style="display: flex;">
             <textarea type="text" name="text" placeholder="текст" style="height: 100px; width: 200px;" required></textarea>
             <button type="submit" name="shitpost">отправить</button>
@@ -134,7 +141,7 @@ $users = $db->query("SELECT * FROM users");
     <?php endif; ?>
     <div style="text-align: center; margin-top: 5px; display: flex; flex-direction: column; align-items: center;">
         <img src="/board/assets/server/nightchat.webp" style="width: 150px; height: 150px">
-        <a href="https://github.com/qnezor/simpleboard" target="_blank">simpleboard engine, beta 0.4</a>
+        <a href="https://github.com/qnezor/simpleboard" target="_blank">simpleboard engine, beta 0.5</a>
     </div>
 </body>
 
