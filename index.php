@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' and isset($_POST['shitpost'])) {
         exit;
     } else {
         $nickname = htmlspecialchars($_SESSION['nickname']);
-        $image = "<img src='" . htmlspecialchars($_POST['image']) . "'>";
+        $image = "<img src=" . htmlspecialchars($_POST['image']) . ">";
         $reply = $db->real_escape_string((int)$_POST['reply']);
         $text = $db->real_escape_string($_POST['text']);
         if ($image !== "") {
